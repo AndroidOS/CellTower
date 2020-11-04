@@ -1,8 +1,11 @@
 package com.manuelcarvalho.celltower
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.telephony.TelephonyManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -12,9 +15,11 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private val LOCATION_PERMISSION_CODE = 101
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,8 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+
+        phoneStatus()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -94,6 +101,37 @@ class MainActivity : AppCompatActivity() {
                         .show()
             }
         }
+    }
+
+    fun phoneStatus() {
+        var tm = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        } else {
+            TODO("VERSION.SDK_INT < M")
+        }
+
+//        var IMEINumber = tm.deviceId
+//        var subscriberID = tm.deviceId
+//        var SIMSerialNumber = tm.simSerialNumber
+//        var networkCountryISO = tm.networkCountryIso
+//        var SIMCountryISO = tm.simCountryIso
+//        var softwareVersion = tm.deviceSoftwareVersion
+//        var voiceMailNumber = tm.voiceMailNumber
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            Log.d(TAG, "PhoneStatus method")
+            val a = tm.allCellInfo
+            Log.d(TAG, "All cell Info   ${a}")
+            return
+        }
+        // tm.allCellInfo
     }
 
 }
