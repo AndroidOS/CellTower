@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.telephony.CellSignalStrength
+import android.telephony.SignalStrength
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.Menu
@@ -127,11 +129,33 @@ class MainActivity : AppCompatActivity() {
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             Log.d(TAG, "PhoneStatus method")
-            val a = tm.allCellInfo
-            Log.d(TAG, "All cell Info   ${a}")
+            val a = tm.phoneType
+            val b = tm.networkType
+            var c: SignalStrength? = null
+            var d = ""
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                c = tm.signalStrength
+            } else {
+
+            }
+
+            var e: List<CellSignalStrength>? = null
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                e = c?.cellSignalStrengths
+            } else {
+                TODO("VERSION.SDK_INT < Q")
+            }
+            Log.d(TAG, "signalStrength  ${c.toString()}")
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                d = tm.typeAllocationCode.toString()
+            }
+
+            Log.d(TAG, "getTypeAllocationCode   ${e.toString()}")
             return
         }
         // tm.allCellInfo
     }
 
 }
+
