@@ -1,4 +1,4 @@
-package com.manuelcarvalho.celltower
+package com.manuelcarvalho.celltower.view
 
 import android.Manifest
 import android.content.Context
@@ -14,11 +14,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.manuelcarvalho.celltower.R
+import com.manuelcarvalho.cocopic.viewmodel.AppViewModel
 
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: AppViewModel
 
     private val LOCATION_PERMISSION_CODE = 101
 
@@ -27,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        viewModel = ViewModelProviders.of(this)[AppViewModel::class.java]
 
         checkPermission(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
