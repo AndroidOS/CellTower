@@ -1,20 +1,23 @@
 package com.manuelcarvalho.celltower.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.manuelcarvalho.celltower.R
+import com.manuelcarvalho.cocopic.viewmodel.AppViewModel
 
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+private const val TAG = "FirstFragment"
 class FirstFragment : Fragment() {
 
+    private lateinit var viewModel: AppViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -27,9 +30,27 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[AppViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
+        observeViewModel()
+
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+    }
+
+    fun observeViewModel() {
+
+        viewModel.details.observe(viewLifecycleOwner, Observer { list ->
+            list?.let {
+                Log.d(TAG, "Fragment ${list} ")
+
+            }
+        })
+
+
     }
 
 

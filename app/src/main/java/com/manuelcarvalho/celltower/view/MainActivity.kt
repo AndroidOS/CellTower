@@ -149,6 +149,7 @@ class MainActivity : AppCompatActivity() {
             var e: List<CellSignalStrength>? = null
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
                 e = c?.cellSignalStrengths
+                viewModel.details.value = e
             } else {
                 TODO("VERSION.SDK_INT < Q")
             }
