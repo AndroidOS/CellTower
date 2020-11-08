@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,8 +15,11 @@ import com.manuelcarvalho.celltower.R
 import com.manuelcarvalho.cocopic.viewmodel.AppViewModel
 
 
+
 private const val TAG = "FirstFragment"
 class FirstFragment : Fragment() {
+
+    private lateinit var textview_first: TextView
 
     private lateinit var viewModel: AppViewModel
 
@@ -39,6 +43,8 @@ class FirstFragment : Fragment() {
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        textview_first = view.findViewById(R.id.textview_first)
     }
 
     fun observeViewModel() {
@@ -46,6 +52,7 @@ class FirstFragment : Fragment() {
         viewModel.details.observe(viewLifecycleOwner, Observer { list ->
             list?.let {
                 Log.d(TAG, "Fragment ${list} ")
+                textview_first.text = list[0].toString()
 
             }
         })
