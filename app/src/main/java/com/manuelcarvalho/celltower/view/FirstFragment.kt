@@ -51,8 +51,9 @@ class FirstFragment : Fragment() {
 
         viewModel.details.observe(viewLifecycleOwner, Observer { list ->
             list?.let {
-                Log.d(TAG, "Fragment ${list} ")
-                textview_first.text = list[0].toString()
+                Log.d(TAG, "Fragment ${list[0]} ")
+                var sig = list[0]
+                textview_first.text = sig.asuLevel.toString()
 
             }
         })
