@@ -129,8 +129,12 @@ class MainActivity : AppCompatActivity() {
         var tm = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         } else {
-            TODO("VERSION.SDK_INT < M")
+            getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+
+
         }
+
+        var b = tm.allCellInfo
 
 //        var IMEINumber = tm.deviceId
 //        var subscriberID = tm.deviceId
@@ -172,7 +176,7 @@ class MainActivity : AppCompatActivity() {
                 d = tm.typeAllocationCode.toString()
             }
 
-            Log.d(TAG, "getTypeAllocationCode   ${e.toString()}")
+            Log.d(TAG, "getTypeAllocationCode   $b")
             return
         }
         // tm.allCellInfo
