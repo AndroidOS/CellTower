@@ -157,30 +157,38 @@ class MainActivity : AppCompatActivity() {
             val b = tm.networkType
             var c: SignalStrength? = null
             var d = ""
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                c = tm.signalStrength
-            } else {
-
-            }
-
-            var e: List<CellSignalStrength>? = null
+            var e1: List<CellSignalStrength>? = null
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                e = c?.cellSignalStrengths
-                viewModel.details.value = e
+                //c = tm.signalStrength
+                e1 = c?.cellSignalStrengths
+                viewModel.details.value = e1
             } else {
-                TODO("VERSION.SDK_INT < Q")
-            }
-            Log.d(TAG, "signalStrength  ${c.toString()}")
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                d = tm.typeAllocationCode.toString()
+                tm = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                var dat = tm.allCellInfo
+                Log.d(TAG, "AllCellInfo ${dat}")
             }
 
-            Log.d(TAG, "getTypeAllocationCode   $b")
-            return
+//            var e: List<CellSignalStrength>? = null
+//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+//                e = c?.cellSignalStrengths
+//                viewModel.details.value = e
+//            } else {
+//                //("VERSION.SDK_INT < Q")
+//                tm = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+//                var dat = tm.allCellInfo
+//                Log.d(TAG, "AllCellInfo ${dat}")
+//            }
+//            Log.d(TAG, "signalStrength  ${c.toString()}")
+//
+//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+//                d = tm.typeAllocationCode.toString()
+//            }
+//
+//            Log.d(TAG, "getTypeAllocationCode   $b")
+//            return
+//        }
+            // tm.allCellInfo
         }
-        // tm.allCellInfo
     }
-
 }
 
