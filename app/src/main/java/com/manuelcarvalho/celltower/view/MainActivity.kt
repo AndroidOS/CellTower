@@ -163,31 +163,14 @@ class MainActivity : AppCompatActivity() {
                 e1 = c?.cellSignalStrengths
                 viewModel.details.value = e1
             } else {
+                Log.d(TAG, "PhoneStatus < Q")
                 tm = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
                 var dat = tm.allCellInfo
+                viewModel.allCellInfo.value = dat
                 Log.d(TAG, "AllCellInfo ${dat}")
             }
 
-//            var e: List<CellSignalStrength>? = null
-//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-//                e = c?.cellSignalStrengths
-//                viewModel.details.value = e
-//            } else {
-//                //("VERSION.SDK_INT < Q")
-//                tm = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-//                var dat = tm.allCellInfo
-//                Log.d(TAG, "AllCellInfo ${dat}")
-//            }
-//            Log.d(TAG, "signalStrength  ${c.toString()}")
-//
-//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-//                d = tm.typeAllocationCode.toString()
-//            }
-//
-//            Log.d(TAG, "getTypeAllocationCode   $b")
-//            return
-//        }
-            // tm.allCellInfo
+
         }
     }
 }

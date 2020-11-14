@@ -59,6 +59,15 @@ class FirstFragment : Fragment() {
             }
         })
 
+        viewModel.allCellInfo.observe(viewLifecycleOwner, Observer { list ->
+            list?.let {
+                Log.d(TAG, "Fragment ${list[0]} ")
+                var sig = list[0]
+                textview_first.text = "${sig}"
+
+            }
+        })
+
 
     }
 
