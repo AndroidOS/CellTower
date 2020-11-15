@@ -42,7 +42,8 @@ class FirstFragment : Fragment() {
         observeViewModel()
 
         view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            //findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(R.id.action_FirstFragment_to_mapsFragment)
         }
 
         textview_first = view.findViewById(R.id.textview_first)
